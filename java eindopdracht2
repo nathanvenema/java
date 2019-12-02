@@ -1,0 +1,56 @@
+public class Eindopdracht1 {
+	public static void main(String[] args) {
+		String formule = "4+3";
+		Integer resultaat = FormuleBereken.bereken(formule);
+		System.out.println(formule + " = " + resultaat);
+
+		formule = "4 *3 + 2";
+		resultaat = FormuleBereken.bereken(formule);
+		System.out.println(formule + " = " + resultaat);
+
+	}
+}
+
+class FormuleBereken {
+	static Integer bereken(String formule) {
+		int resultaat = 0;
+		int g1, g2 = 0;
+
+		int i = formule.indexOf("*");
+
+		if (i >= 0) {
+			// er zit een sterretje in
+			// pak het stuk van begin tot aan ander teken
+			int anderTeken = formule.indexOf("+");
+
+			if (anderTeken >= 0) {
+				String newFormule = formule.substring(0, anderTeken).trim();
+				g1 = bereken(newFormule);
+				g2 = Integer.valueOf(formule.substring(i + 1, anderTeken).trim());
+				resultaat = g1 + g2;
+			} else {
+				String s1 = formule.substring(0, i).trim();
+				String s2 = formule.substring(i + 1, formule.length()).trim();
+
+				g1 = Integer.valueOf(s1);
+				g2 = Integer.valueOf(s2);
+				resultaat = g1 * g2;
+				
+			}
+		} else {
+
+			i = formule.indexOf("+");
+
+			String s1 = formule.substring(0, i).trim();
+			String s2 = formule.substring(i + 1, formule.length()).trim();
+
+			g1 = Integer.valueOf(s1);
+			g2 = Integer.valueOf(s2);
+			
+			resultaat = g1 + g2;
+		}
+
+
+		return resultaat;
+	}
+}
